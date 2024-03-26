@@ -5,3 +5,4 @@
 /.venv/
 /inconnect_web/__pycache__
 /inconnect_web/__pycache__/
+/inconnect_web/__pycache/*
