@@ -1,0 +1,7 @@
+# created by virtualenv automatically
+/.idea
+/.venv
+/.idea/
+/.venv/
+/inconnect_web/__pycache__
+/inconnect_web/__pycache__/
