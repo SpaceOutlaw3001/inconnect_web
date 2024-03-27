@@ -9,4 +9,4 @@
 /inconnect_web/__pycache__/*
 __pycache__/*
 __pycache__/
-.env
+*.env
