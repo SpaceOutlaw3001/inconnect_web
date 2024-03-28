@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Наши приложения
     'main',
-    # Приложения которые уже были в проекте
+    # Приложения, которые уже были в проекте
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
