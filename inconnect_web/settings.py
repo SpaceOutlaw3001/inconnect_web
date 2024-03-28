@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Наши приложения
-    'events_menu', 
+    'main',
     # Приложения которые уже были в проекте
     'django.contrib.admin',
     'django.contrib.auth',
