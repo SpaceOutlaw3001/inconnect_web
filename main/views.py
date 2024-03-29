@@ -3,4 +3,9 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    return HttpResponse("<h3>Привет мир!</h3>")
+    return HttpResponse(
+    '''
+    <h3>Привет мир!</h3>
+    <h5>aaaaaaaaaaaa</h5>
+    '''
+        )
