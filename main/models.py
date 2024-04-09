@@ -33,9 +33,9 @@ class Event(models.Model):
     date = models.DateField('Дата')
     time = models.TimeField('Время')
     chat_link = models.URLField('Ссылка на чат', max_length=200, blank=True)
-    price = models.PositiveIntegerField(default=0)
+    price = models.PositiveIntegerField('Цена',default=0)
     tags = models.ManyToManyField(Tag, db_table='event_to_tag')
-    image = models.OneToOneField(Image, on_delete=models.PROTECT)
+    image = models.ForeignKey(Image, on_delete=models.PROTECT)
     # потом добавим пользователя
 
     def __str__(self):

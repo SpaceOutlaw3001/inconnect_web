@@ -1,0 +1,21 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Заголовокккккк{% endblock %}
+
+{% block content %}
+<div>
+{% for event in events %}
+    <h3>{{event.title}}</h3>
+    <p>{{event.place}}</p>
+    <p>{{event.date}}</p>
+    <p>{{event.time}}</p>
+    <p>Ссылка на чат: "{{event.chat_link}}"</p>
+    <p>Цена: {{event.price}}</p>
+{% endfor %}
+{% for image in images %}
+    <h3>{{image.id}} {{image.tag}}</h3>
+    <img src={{image.url}} width="128" height="128">
+{% endfor %}
+</div>
+
+{% endblock %}
