@@ -15,7 +15,7 @@ def index(request):
     <h5>aaaaaaaaaaaa</h5>
     '''
         )
-
+# просто тест, игнорируй
 def events_page(request):
     events = Event.objects.all()
     images = Image.objects.all()
@@ -23,17 +23,18 @@ def events_page(request):
 
 
 class eventsAPIView(APIView):
+    # получение списка всех событий
     def get(self, request):
         events = Event.objects.all()
         return Response({'events': EventSerializer(events, many=True).data})
-    
+    # создание события
     def post(self, request):
         serializer = EventSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
         return Response({'event': serializer.data})
-    
+    # обновление события
     def put(self, request, *args, **kwargs):
         pk = kwargs.get('pk', None)
         if not pk:
@@ -47,7 +48,7 @@ class eventsAPIView(APIView):
         serializer.save()
 
         return Response({'event': serializer.data})
-    
+    # удаление события
     def delete(self, request, *args, **kwargs):
         pk = kwargs.get('pk', None)
         if not pk:
@@ -58,19 +59,27 @@ class eventsAPIView(APIView):
             return Response({'error': "Couldn't find Event with the given primary key."})
         event.delete()
         return Response({'deleted_event': f'Deleted Event with id={pk}.'})
-        
+
+# получение события по id (pk)
+class eventsDetailAPIView(generics.RetrieveAPIView):
+    def get(self, request, pk):
+        event = Event.objects.get(pk=pk)
+        return Response({'event': EventSerializer(event).data})
+
         
 class imagesAPIView(APIView):
+    # получение всех изображений
     def get(self, request):
         images = Image.objects.all()
         return Response({'images': ImageSerializer(images, many=True).data})
+# получение изображения по id (pk)
 class imagesDetailAPIView(generics.RetrieveAPIView):
     def get(self, request, pk):
         image = Image.objects.get(pk=pk)
         return Response({'image': ImageSerializer(image).data})
 
 
-
+# это тоже игнорь
 # @csrf_exempt
 # def image_list(request):
 #     """
