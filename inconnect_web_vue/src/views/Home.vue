@@ -4,7 +4,18 @@ import { Icon } from "vue3-google-icon";
 import image from "../img/bowling.jpg";
 import AboutPage from '@/views/AboutPage.vue'
 import axios from "axios";
+import {useUserStore} from "@/stores/user";
 export default {
+  setup() {
+        const userStore = useUserStore()
+
+        return {
+            userStore
+          }
+        },
+  beforeCreate() {
+        this.userStore.initStore()
+    },
   name: "EventView",
   components: {Icon},
 
@@ -32,10 +43,10 @@ export default {
   methods: {
     getEvents() {
       axios
-        .get("/api/events")
+        .get("/api/events/?users="+this.userStore.user.id)
         .then((response) => {
           console.log("data", response.data);
-
+          console.log(JSON.stringify(this.userStore));
           this.events = response.data//.events; //this.events = response.data
           console.log("this.events", this.events);
         })

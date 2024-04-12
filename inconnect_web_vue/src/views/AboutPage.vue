@@ -34,7 +34,7 @@ export default {
   methods: {
     getEvents() {
       axios
-        .get("/api/event")
+        .get("/api/events/1")
         .then((response) => {
           console.log("data", response.data);
 
