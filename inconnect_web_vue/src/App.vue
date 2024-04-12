@@ -1,31 +1,75 @@
 <script>
+import Toast from "./components/Toast.vue";
+import { useUserStore } from "./stores/user";
+import axios from "axios";
+
 import { Icon } from "vue3-google-icon";
 export default {
-  components: {Icon},
+  setup() {
+        const userStore = useUserStore()
+
+        return {
+            userStore
+          }
+        },
+  components: {Icon, Toast},
+  beforeCreate() {
+        this.userStore.initStore()
+
+        const token = this.userStore.user.access
+
+        if (token) {
+            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+        } else {
+            axios.defaults.headers.common["Authorization"] = "";
+        }
+    },
+    methods: {
+        logout() {
+            console.log('Log out')
+
+            this.userStore.removeToken()
+
+            // this.$router.push('/login')
+        }
+    }
 };
 </script>
 <template>
       <header id="header-section">
         <div class="container">
           <div class="header">
-
-            <RouterLink class="header-logo" to="/all">Inconnect</RouterLink>
+            
+            <RouterLink class="header-logo" to="/">Inconnect</RouterLink>
             <div class="header-action">
-              <RouterLink class="header-action__login material-symbols-outlined md-32"
-                          to="/registration">
+              <div class="header-action" v-if="userStore.user.isAuthenticated">
+                <RouterLink @click="logout" class="header-action__login material-symbols-outlined md-32"
+                          to="/login">
+                <Icon type="login" />
+                </RouterLink>
+
+                <RouterLink class="header-action__account_circle material-symbols-outlined md-32"
+                          to="/"
+                ><Icon type="account_circle"  />
+                </RouterLink>
+              </div>
+
+              <div v-else>
+                <RouterLink class="header-action__login material-symbols-outlined md-32"
+                          to="/login">
                 <Icon type="login" />
               </RouterLink>
-              <RouterLink class="header-action__account_circle material-symbols-outlined md-32"
-                          to="/"
-              ><Icon type="account_circle"  />
-              </RouterLink>
+              </div>
+
             </div>
           </div>
         </div>
       </header>
 <RouterView />
+<Toast />
 </template>
 <script setup>
+
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&family=Russo+One&display=swap");

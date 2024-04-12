@@ -77,9 +77,9 @@ export default {
                 </div>
                 <div class="card-bottom">
                   <h5 class="name-event">{{ event.title }}</h5>
-                  <div class="tegs-list">
-                    <div class="tegs" v-for="tag in event.tags" :key="tag.id"> {{tag}}</div>
-                  </div>
+                  <p class="tegs" v-for="tag in event.tags" :key="tag.id">
+                    #{{ tag }}
+                  </p>
                   <div class="date-place-time">
                     <p class="date">{{ event.date }}</p>
                     <p class="time">{{ event.time }}</p>
@@ -275,8 +275,6 @@ section {
 h5 {
   font: 600 24px "Raleway", sans-serif;
 }
-.tegs-list{
-  display: flex;
-}
+
 
 </style>

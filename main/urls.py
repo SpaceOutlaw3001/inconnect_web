@@ -12,6 +12,7 @@ router.register(r'events', views.EventsView, basename='events')
 urlpatterns = [
     path('', views.index, name='index'),
     path('events_page', views.events_page, name='events_page'),
+    # path('api/drf-auth/', include('rest_framework.urls')),
     #path('events/', views.eventsAPIView.as_view(), name='events'),
     #path('api/events/<int:pk>/', views.eventsAPIView.as_view(), name='events'),
     #path('api/events/detail/<int:pk>/', views.eventsDetailAPIView.as_view(), name='event'),

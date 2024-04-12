@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'users:test' %}"><h3>HelpMeImInConstantPain</h3></a>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'users:test' %}" style="color: #F00274"><h4>Главная</h4></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:test' %}" style="color: #F00274"><h4>Записаться</h4></a>
+          </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:logout' %}" style="color: #F00274"><h4>Выйти</h4></a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:login' %}" style="color: #F00274"><h4>Войти </h4></a>
+                    </li>
+                {% endif %}
+
+
+        </ul>
+      </div>
+
+    </nav>
+    
+</body>
+<main>
+    {% block content %}
+    {% endblock %}
+
+    {% block scripts %}
+    {% endblock %}
+</main>
+</html>
