@@ -1,6 +1,7 @@
 from rest_framework import routers, serializers, viewsets
-from .models import Event, Image
+from .models import Event, Image, Tag
 
+# Для События
 class EventSerializer(serializers.ModelSerializer):
     img_url = serializers.SerializerMethodField('_get_img_url')
     def _get_img_url(self, obj):
@@ -22,9 +23,9 @@ class EventSerializer(serializers.ModelSerializer):
             image = validated_data['image'],
         )
         new_event.tags.set(validated_data['tags'])
-        
+
         return new_event
-    
+
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         instance.text = validated_data.get('text', instance.text)
@@ -39,8 +40,14 @@ class EventSerializer(serializers.ModelSerializer):
 
         return instance
     
-
+# Для Изображения
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
+        fields = '__all__'
+
+# Для Тегов
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
         fields = '__all__'
