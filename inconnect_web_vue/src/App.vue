@@ -9,10 +9,10 @@ export default {
         <div class="container">
           <div class="header">
 
-            <RouterLink class="header-logo" to="/">Inconnect</RouterLink>
+            <RouterLink class="header-logo" to="/all">Inconnect</RouterLink>
             <div class="header-action">
               <RouterLink class="header-action__login material-symbols-outlined md-32"
-                          to="/about">
+                          to="/registration">
                 <Icon type="login" />
               </RouterLink>
               <RouterLink class="header-action__account_circle material-symbols-outlined md-32"
