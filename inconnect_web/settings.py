@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Наши приложения
     'main',
+    'users',
     # Установленные фреймворки, пакеты и др.
     'rest_framework',
     'corsheaders',
@@ -63,7 +64,18 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8080",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
+    "http://192.168.100.8:8080"
 ]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://192.168.100.8:8080"
+]
+CSRF_COOKIE_NAME = "csrftoken"
+CSRF_HEADER_NAME = "X-CSRFToken"
+CORS_ALLOW_CREDENTIALS = True
 
 
 

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Tag(models.Model):
@@ -36,7 +37,9 @@ class Event(models.Model):
     price = models.PositiveIntegerField('Цена',default=0)
     tags = models.ManyToManyField(Tag, db_table='event_to_tag')
     image = models.ForeignKey(Image, on_delete=models.PROTECT)
-    # потом добавим пользователя
+
+    users = models.ManyToManyField(User, related_name='subscriptions', blank=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.title

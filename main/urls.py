@@ -1,10 +1,12 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 # пути API
 urlpatterns = [
     path('', views.index, name='index'),
     path('events_page', views.events_page, name='events_page'),
+    # path('api/drf-auth/', include('rest_framework.urls')),
+
     path('api/events/', views.eventsAPIView.as_view(), name='events'),
     path('api/events/<int:pk>/', views.eventsAPIView.as_view(), name='events'),
     path('api/events/detail/<int:pk>/', views.eventsDetailAPIView.as_view(), name='event'),
