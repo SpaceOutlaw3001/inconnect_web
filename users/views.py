@@ -7,14 +7,6 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
-# def login_user(request):
-#     if request.method == 'POST':
-#         form = LoginUserForm(request.POST)
-#     form = LoginUserForm()
-#     return render(request, 'users/login.html', {'form': form})
-
-# def logout_user(request):
-#     return HttpResponse('logout')
 class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'users/registration.html'

@@ -2,7 +2,7 @@
 import mafia from "../img/mafia.jpg";
 import { Icon } from "vue3-google-icon";
 import image from "../img/bowling.jpg";
-import AboutPage from '@/views/AboutPage.vue'
+
 import axios from "axios";
 export default {
   name: "EventView",
@@ -98,11 +98,36 @@ export default {
             <ul class="active-events-list">
               <li class="active-event" v-for="event in events" :key="event.id">
                 <div class="card-top">
-                  <RouterLink to="/aboutpage">
-                    <a class="active-event-img" href="#">
-                      <img :src="event.img_url" alt="боулинг" />
-                    </a>
-                  </RouterLink>
+                  <a class="active-event-img" href="#">
+                    <img :src="event.img_url" alt="боулинг" />
+                  </a>
+                  <div class="card-label-price">{{ event.price }}₽</div>
+                </div>
+                <div class="card-bottom">
+                  <h5 class="name-event">{{ event.title }}</h5>
+                  <p class="tegs" v-for="tag in event.tags" :key="tag.id">
+                    {{ tag }}
+                  </p>
+                  <div class="date-place-time">
+                    <p class="date">{{ event.date }}</p>
+                    <p class="time">{{ event.time }}</p>
+                    <p class="place">{{ event.place }}</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="favourites-events">
+          <div class="container">
+            <h2>Избранное</h2>
+            <ul class="active-events-list">
+              <li class="active-event" v-for="event in events" :key="event.id">
+                <div class="card-top">
+                  <a class="active-event-img" href="#">
+                    <img :src="event.img_url" alt="боулинг" />
+                  </a>
                   <div class="card-label-price">{{ event.price }}₽</div>
                 </div>
                 <div class="card-bottom">

@@ -2,7 +2,7 @@
 import mafia from "../img/mafia.jpg";
 import { Icon } from "vue3-google-icon";
 import image from "../img/bowling.jpg";
-import AboutPage from '@/views/AboutPage.vue'
+
 import axios from "axios";
 export default {
   name: "EventView",
@@ -12,7 +12,7 @@ export default {
     return {
       events: [{ id:1,
           name:'Мафия',
-          tags:['#Развлечения','#18+'],
+          tags:['Развлечения','18+'],
           date:'22 апреля',
           time:'20:00',
           place:'Мира 5',
@@ -60,55 +60,25 @@ export default {
     <body>
 
       <main>
-        <section id="profile-section">
-          <div class ="container">
-            <div class="container-profile">
-              <div class="container-profile-avatar">
-                <div class="profile-avatar">
-                  <img src="@/img/avatar.jpg" alt="#">
-                </div>
-                <div class="container-tags">
-                  <div class="person-tag-list-container">
-                    Саша, 24
-                  </div>
-                </div>
-              </div>
-              <div class="about-me-info">
-                <div class = "about-me-container">
-                  <div class= "my-tags" style="">#Мои#Теги</div>
-                  <div style="top: 77.50px;  border: 2px white solid"></div>
-                  <ul class="person-tags-list">
-                    <li class="tag-list" v-for="tag in tags_person">
-                      <div class = "person-tag-list-container">
-                        <div style="justify-content: center; align-items: center; gap: 40px; display: inline-flex">
-                          <div style="color: #129BFF; font-size: 20px;  font-weight: 400; word-wrap: break-word">{{tag}}</div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section id="active-events">
+
+
+
+        <section id="favourites-events">
           <div class="container">
-            <h2>Активные события</h2>
+            <h2>Популярные события</h2>
             <ul class="active-events-list">
               <li class="active-event" v-for="event in events" :key="event.id">
                 <div class="card-top">
-                  <RouterLink to="/aboutpage">
-                    <a class="active-event-img" href="#">
-                      <img :src="event.img_url" alt="боулинг" />
-                    </a>
-                  </RouterLink>
+                  <a class="active-event-img" href="#" >
+                    <img :src="event.img_url" alt="боулинг" />
+                  </a>
                   <div class="card-label-price">{{ event.price }}₽</div>
                 </div>
                 <div class="card-bottom">
                   <h5 class="name-event">{{ event.title }}</h5>
                   <p class="tegs" v-for="tag in event.tags" :key="tag.id">
-                    {{ tag }}
+                    #{{ tag }}
                   </p>
                   <div class="date-place-time">
                     <p class="date">{{ event.date }}</p>
@@ -247,7 +217,6 @@ section {
 .active-event-img > img {
   width: 100%;
   height: 100%;
-  /*object-fit: contain; !* Встраиваем картинку в контейнер card__image *!*/
   transition: 0.2s;
   border-radius: 20px;
 }
