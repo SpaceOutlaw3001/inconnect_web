@@ -60,51 +60,43 @@ export default {
       />
     </head>
     <body>
-
       <main>
         <section id="event">
-          <div class ="container">
-
-
-        <div style="width: 100%; height: 100%; position: relative; background: white">
-
-            <div style="width: 1300px; height: 660px; left: 0px; top: 88px; background: #D7D7D7">
-                <div style="left: 332px; top: 264px; position: absolute; color: black; font-size: 48px; font-family: Russo One; font-weight: 400; word-wrap: break-word">{{ event.title }}</div>
-                <div style="left: 332px; top: 330px; position: absolute">
-                  <p class="tegs" v-for="tag in event.tags" :key="tag.id">
-                    {{ tag }}
-                  </p>
-                  <div style=" justify-content: center; align-items: center; gap: 8px; display: inline-flex">
-                    <div style="color: black; font-size: 20px; font-family: Raleway; font-weight: 400; word-wrap: break-word">{{ event.date }}, {{ event.time }}</div>
-                    <div style="width: 14px; height: 14px; position: relative">
-                        <div style="width: 5.83px; height: 5.83px; left: 4.08px; top: 4.08px; position: absolute; background: black"></div>
+          <div class="about-event-container">
+            <div class="card-top">
+              <a class="active-event-img" href="#">
+                <img :src="event.img_url" alt="боулинг" />
+              </a>
+              <div class="conteiner-about-event">
+                <div class="about-event">
+                  <div class="price-name">
+                    <h5 class="name-event">{{ event.title }}</h5>
+                    <div class="price">
+                      {{ event.price }}₽
                     </div>
-                    <div style="color: black; font-size: 20px; font-family: Raleway; font-weight: 400; word-wrap: break-word">{{ event.place }}</div>
-
-                </div>
-                  <div style="padding-left: 19px; padding-right: 19px; padding-top: 5px; padding-bottom: 5px; background: #129BFF; border-radius: 24px ">
-                    <div style="color: white; font-size: 24px; font-family: Raleway; font-weight: 600; word-wrap: break-word">Участвовать</div>
                   </div>
+                  <div class="tegs-list">
+                    <div class="tegs" v-for="tag in event.tags" :key="tag.id"> {{tag}}</div>
+                  </div>
+                  <div class="date-place-time">
+                    <p class="date">{{ event.date }}•</p>
+                    <p class="time">{{ event.time }}•</p>
+                    <p class="place">{{ event.place }}</p>
+                  </div>
+                  <button class="button-participate">
+                    Участвовать
+                  </button>
                 </div>
-
-
-                <div style="padding-left: 19px; padding-right: 19px; padding-top: 5px; padding-bottom: 5px; left: 566px; top: 271px; position: absolute; background: #129BFF; border-radius: 24px; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
-                    <div style="justify-content: flex-start; align-items: flex-start; gap: 7px; display: inline-flex">
-                        <div style="color: white; font-size: 24px; font-family: Raleway; font-weight: 600; word-wrap: break-word">{{ event.price }}</div>
-                        <div style="justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex">
-                            <div style="color: white; font-size: 24px; font-family: Raleway; font-weight: 600; word-wrap: break-word">₽</div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-            <div style="left: 330px; top: 865px; position: absolute; color: black; font-size: 48px; font-family: Russo One; font-weight: 400; word-wrap: break-word">О событии</div>
-            <div style="width: 747px; left: 330px; top: 988px; position: absolute; color: black; font-size: 24px; font-family: Raleway; font-weight: 400; word-wrap: break-word">{{ event.text }}</div>
-            <div style="width: 100px; height: 100px; left: 454px; top: 836px; position: absolute"></div>
-        </div>
-            </div>
-
+          </div>
+          <div class="description">
+            <label>
+              О событии
+            </label>
+            <p class="description-text">Банальные, но неопровержимые выводы, а также базовые сценарии поведения пользователей неоднозначны и будут ассоциативно распределены по отраслям. Как принято считать, многие известные личности неоднозначны и будут в равной степени предоставлены сами себе. С другой стороны, начало повседневной работы по формированию позиции в значительной степени обусловливает важность вывода текущих активов. В своём стремлении улучшить пользовательский опыт мы упускаем, что сделанные на базе интернет-аналитики выводы смешаны с не уникальными .</p>
+          </div>
         </section>
-
       </main>
     </body>
   </div>
@@ -116,52 +108,94 @@ export default {
 * {
   margin: 0;
   padding: 0;
-
+  box-sizing: border-box;
 }
-body {
-  color: #000000;
-  font: 400 24px "Raleway", sans-serif;
-  background-color: #ffffff;
+.card-top {
+  position: relative;
 }
 
-ul li,
-ol li {
-  list-style-type: none;
-}
-button {
+.active-event-img {
   display: block;
-  border: none;
-  color: inherit;
-  font: inherit;
-  background-color: transparent;
-  transition: 0.4s;
-  cursor: pointer;
+  width: 100%;
+  height: 660px;
 }
-.container {
-  max-width: 1260px;
-  margin: 0 auto;
-  padding: 0 10px;
+.active-event-img > img {
+  width: 100%;
+  height: 100%;
+  transition: 0.2s;
+  object-fit: cover;
 }
+.card-top:hover {
+  box-shadow: 4px 8px 16px #a9dbff;
+}
+.conteiner-about-event {
+  background: rgba(255, 255, 255, 0.29);
+  backdrop-filter: blur(5px);
+  width: 100%;
+  height: 300px;
+  position: absolute;
+  inset: auto auto 0px auto;
+  margin: 0;
+  color: white;
+  font: 400 24px "Raleway", sans-serif;
+}
+.about-event{
+  margin-left: 330px;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.date-place-time {
+  display: flex;
+}
+
 section {
-  margin-top: 24px;
-}
-
-
-h2 {
-  font: 400 36px "Russo One", sans-serif;
-}
-
-section {
-  margin-top: 24px;
+/*  margin-top: 24px;*/
 }
 
 .tegs {
-  color: #585858;
+  color: #b8b8b8;
 }
 
 h5 {
-  font: 600 24px "Raleway", sans-serif;
+  font: 400 48px "Russo One", sans-serif;
 }
-
-
+.price-name {
+  display: flex;
+  gap: 64px;
+}
+.tegs-list{
+  display: flex;
+}
+.price {
+  font: 600 24px "Raleway", sans-serif;
+  background-color: #129bff;
+  width: 99px;
+  height: 38px;
+  padding: 5px 19px;
+  border-radius: 24px;
+  margin-top: 10px;
+}
+.button-participate{
+  background-color: #129bff;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  display: block;
+  width: 194px;
+  padding: 16px 32px;
+  margin-top: 16px;
+  font: 500 20px "Raleway", sans-serif;
+  cursor: pointer;
+}
+.description {
+  font: 400 48px "Russo One", sans-serif;
+  margin: 24px 330px;
+}
+.description-text{
+  font: 500 20px "Raleway", sans-serif;
+  margin-top: 24px;
+  margin-right: 660px;
+}
 </style>
