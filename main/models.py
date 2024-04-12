@@ -39,7 +39,9 @@ class Event(models.Model):
     image = models.ForeignKey(Image, on_delete=models.PROTECT)
 
     # По пользователю
+    # Подписчики на событие:
     users = models.ManyToManyField(User, related_name='subscriptions', blank=True)
+    # Создатель события:
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):

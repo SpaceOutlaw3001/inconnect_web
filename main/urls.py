@@ -6,7 +6,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'tags', views.TagsView, basename='tags')
 router.register(r'events', views.EventsView, basename='events')
-router.register(r'events/<int:pk>', views.EventsView, basename='eventsid')
+#router.register(r'events/<int:pk>', views.EventsView, basename='eventsid')
 
 # пути API
 urlpatterns = [
