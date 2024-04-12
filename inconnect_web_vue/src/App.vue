@@ -40,7 +40,7 @@ export default {
         <div class="container">
           <div class="header">
             
-            <RouterLink class="header-logo" to="/">Inconnect</RouterLink>
+            <RouterLink class="header-logo" to="/all">Inconnect</RouterLink>
             <div class="header-action">
               <div class="header-action" v-if="userStore.user.isAuthenticated">
                 <RouterLink @click="logout" class="header-action__login material-symbols-outlined md-32"

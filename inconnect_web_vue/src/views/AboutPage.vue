@@ -21,9 +21,6 @@ export default {
           img_url:mafia,
           text:"xwertyhjbvcxa ertghjmnbvdsaer",
        },
-
-
-
     };
   },
 
@@ -34,7 +31,7 @@ export default {
   methods: {
     getEvents() {
       axios
-        .get("/api/events/1")
+        .get("/api/events/"+"")
         .then((response) => {
           console.log("data", response.data);
 
