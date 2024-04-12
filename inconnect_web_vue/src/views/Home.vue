@@ -36,7 +36,7 @@ export default {
         .then((response) => {
           console.log("data", response.data);
 
-          this.events = response.data.events; //this.events = response.data
+          this.events = response.data//.events; //this.events = response.data
           console.log("this.events", this.events);
         })
         .catch((error) => {

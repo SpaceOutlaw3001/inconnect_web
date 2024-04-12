@@ -8,7 +8,7 @@ def me(request):
     return JsonResponse({
         'id': request.user.id,
         'username': request.user.username,
-        'email': request.user.email,
+        #'email': request.user.email,
     })
 
 @api_view(['POST'])
@@ -20,7 +20,6 @@ def signup(request):
 
     form = RegisterUserForm({
         'username': data.get('username'),
-        'email': data.get('email'),
         'first_name': data.get('first_name'),
         'last_name': data.get('last_name'),
         'password1': data.get('password1'),
@@ -30,7 +29,7 @@ def signup(request):
     if form.is_valid():
         form.save()
     else:
-        message = 'error'
+        message = 'error_xy'
     
     print(message)
 

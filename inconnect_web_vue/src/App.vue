@@ -45,7 +45,7 @@ export default {
               <div class="header-action" v-if="userStore.user.isAuthenticated">
                 <RouterLink @click="logout" class="header-action__login material-symbols-outlined md-32"
                           to="/login">
-                <Icon type="login" />
+                <Icon type="logout" />
                 </RouterLink>
 
                 <RouterLink class="header-action__account_circle material-symbols-outlined md-32"

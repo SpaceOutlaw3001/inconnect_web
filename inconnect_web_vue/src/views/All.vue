@@ -32,11 +32,11 @@ export default {
   methods: {
     getEvents() {
       axios
-        .get("/api/events")
+        .get("/api/events/")
         .then((response) => {
           console.log("data", response.data);
 
-          this.events = response.data.events; //this.events = response.data
+          this.events = response.data//.events; //this.events = response.data
           console.log("this.events", this.events);
         })
         .catch((error) => {

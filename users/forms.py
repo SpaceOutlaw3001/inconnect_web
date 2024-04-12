@@ -9,11 +9,10 @@ class RegisterUserForm(UserCreationForm):
     password2 = forms.CharField(label="Повторите Пароль", widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     first_name = forms.CharField(label="Имя", widget=forms.TextInput(attrs={'class': 'form-input'}))
     last_name = forms.CharField(label="Фамилия", widget=forms.TextInput(attrs={'class': 'form-input'}))
-    email = forms.EmailField(label="Почта", widget=forms.EmailInput(attrs={'class': 'form-input'}))
 
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email')
+        fields = ('username', 'password1', 'password2', 'first_name', 'last_name')
 
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label="Логин", widget=forms.TextInput(attrs={'class': 'form-input'}))

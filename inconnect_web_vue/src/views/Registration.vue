@@ -55,9 +55,6 @@
         <h2>Регистрация</h2>
         <form v-on:submit.prevent="submitForm">
             <div>
-            <label>Введите почту</label>
-            <input class="mail" type="email" v-model="form.email" placeholder="e-mail">
-
             <label>Введите логин</label>
             <input class="login" type="text" v-model="form.username" placeholder="логин">
 
@@ -126,7 +123,6 @@ export default {
         return {
             form: {
                 username: '',
-                email: '',
                 password1: '',
                 password2: '',
                 first_name: '',
@@ -140,10 +136,6 @@ export default {
         submitForm() {
             this.errors = []
             console.log('submit')
-
-            if (this.form.email === '') {
-                this.errors.push('Укажите почту.')
-            }
 
             if (this.form.first_name === '') {
                 this.errors.push('Укажите имя.')
@@ -168,7 +160,6 @@ export default {
                         if (response.data.message === 'success') {
                             this.toastStore.showToast(5000, 'Пользователь зарегистрирован. Войдите в аккаунт.')
 
-                            this.form.email = ''
                             this.form.name = ''
                             this.form.password1 = ''
                             this.form.password2 = ''
