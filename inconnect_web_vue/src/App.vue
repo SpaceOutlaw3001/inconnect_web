@@ -31,6 +31,9 @@ export default {
             this.userStore.removeToken()
 
             // this.$router.push('/login')
+        },
+        testmethod() {
+          console.log('user:', this.userStore.user.access)
         }
     }
 };
@@ -39,6 +42,7 @@ export default {
       <header id="header-section">
         <div class="container">
           <div class="header">
+            
             
             <RouterLink class="header-logo" to="/">Inconnect</RouterLink>
             <div class="header-action">

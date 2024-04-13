@@ -3,6 +3,7 @@ import mafia from "../img/mafia.jpg";
 import { Icon } from "vue3-google-icon";
 import image from "../img/bowling.jpg";
 import AboutPage from '@/views/AboutPage.vue'
+import Event from '@/components/Event.vue'
 import axios from "axios";
 export default {
   name: "EventView",
@@ -43,6 +44,9 @@ export default {
           console.log("error", error);
         });
     },
+    shareData(event) {
+      this.$router.push({name:"About", params:{data:event}})
+    }
   },
 };
 </script>
@@ -98,11 +102,21 @@ export default {
             <ul class="active-events-list">
               <li class="active-event" v-for="event in events" :key="event.id">
                 <div class="card-top">
-                  <RouterLink to="/aboutpage">
+                  <!-- <RouterLink to="/about">
+                    <a class="active-event-img" href="#">
+                      <img :src="event.img_url" alt="боулинг" />
+                    </a>
+                  </RouterLink> -->
+                  <RouterLink :to="{name:'About', params: {event_id: event.id}}">
                     <a class="active-event-img" href="#">
                       <img :src="event.img_url" alt="боулинг" />
                     </a>
                   </RouterLink>
+                 <!--  <div >
+                    <a class="active-event-img" href="#">
+                        <img :src="event.img_url" @click="shareData(event.price)" alt="боулинг" />
+                    </a>
+                  </div> -->
                   <div class="card-label-price">{{ event.price }}₽</div>
                 </div>
                 <div class="card-bottom">

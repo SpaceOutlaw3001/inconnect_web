@@ -1,15 +1,19 @@
 from django.http import JsonResponse
 from .forms import RegisterUserForm, LoginUserForm
+from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def me(request):
     return JsonResponse({
         'id': request.user.id,
         'username': request.user.username,
         #'email': request.user.email,
     })
+    
 
 @api_view(['POST'])
 @authentication_classes([])

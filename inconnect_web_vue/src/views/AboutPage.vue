@@ -5,7 +5,8 @@ import image from "../img/bowling.jpg";
 
 import axios from "axios";
 export default {
-  name: "EventView",
+  name: "AboutPage",
+  props: { event: Object },
   components: {Icon},
 
   data() {
@@ -27,14 +28,21 @@ export default {
     };
   },
 
+  created() {
+    // this.event.price = this.$route.params.data//.img_url
+    // console.log('this.$route.params.data',this.$route.params.data)
+  },
+
   mounted() {
-    this.getEvents();
+    console.log('this.$route.params.event_id', this.$route.params.event_id)
+    console.log('this.$route.params', this.$route.params)
+    this.getEvents(this.$route.params.event_id);
   },
 
   methods: {
-    getEvents() {
+    getEvents(id) {
       axios
-        .get("/api/event")
+        .get("/api/event/"+id)
         .then((response) => {
           console.log("data", response.data);
 
@@ -45,6 +53,7 @@ export default {
           console.log("error", error);
         });
     },
+
   },
 };
 </script>
@@ -62,11 +71,13 @@ export default {
     <body>
       <main>
         <section id="event">
+          <h1>{{ $route.params.event_price }}</h1>
           <div class="about-event-container">
             <div class="card-top">
               <a class="active-event-img" href="#">
                 <img :src="event.img_url" alt="боулинг" />
               </a>
+              
               <div class="conteiner-about-event">
                 <div class="about-event">
                   <div class="price-name">

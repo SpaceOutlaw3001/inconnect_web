@@ -130,6 +130,7 @@ export default {
                     .get('/users/me/')
                     .then(response => {
                         this.userStore.setUserInfo(response.data)
+                        console.log('response.data:',response.data)
 
                         this.$router.push('/about')// /feed
                     })
