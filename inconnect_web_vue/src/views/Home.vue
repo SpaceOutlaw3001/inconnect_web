@@ -5,7 +5,18 @@ import image from "../img/bowling.jpg";
 import AboutPage from '@/views/AboutPage.vue'
 import Event from '@/components/Event.vue'
 import axios from "axios";
+import {useUserStore} from "@/stores/user";
 export default {
+  setup() {
+        const userStore = useUserStore()
+
+        return {
+            userStore
+          }
+        },
+  beforeCreate() {
+        this.userStore.initStore()
+    },
   name: "EventView",
   components: {Icon},
 
@@ -23,20 +34,30 @@ export default {
       tags_person: [
         "Мемы", "Коты", "PS", "Dota", "Собаки", "Игры", "Один дома", "Еда", "Зал", "Одежда", "Животные", "Зал", "Dota", "Собаки",
       ],
+      myevents: [{ id:1,
+          name:'Мафия',
+          tags:['#Развлечения','#18+'],
+          date:'22 апреля',
+          time:'20:00',
+          place:'Мира 5',
+          price:'200',
+          img_url:mafia
+        },],
     };
   },
 
   mounted() {
     this.getEvents();
+    this.getMyEvents();
   },
 
   methods: {
     getEvents() {
       axios
-        .get("/api/events")
+        .get("/api/events/?users="+this.userStore.user.id)
         .then((response) => {
           console.log("data", response.data);
-
+          console.log(JSON.stringify(this.userStore));
           this.events = response.data//.events; //this.events = response.data
           console.log("this.events", this.events);
         })
@@ -44,9 +65,19 @@ export default {
           console.log("error", error);
         });
     },
-    shareData(event) {
-      this.$router.push({name:"About", params:{data:event}})
-    }
+    getMyEvents() {
+      axios
+        .get("/api/events/?created_by="+this.userStore.user.id)
+        .then((response) => {
+          console.log("data", response.data);
+          console.log(JSON.stringify(this.userStore));
+          this.myevents = response.data//.events; //this.events = response.data
+          console.log("this.events", this.myevents);
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
   },
 };
 </script>
@@ -68,37 +99,42 @@ export default {
           <div class ="container">
             <div class="container-profile">
               <div class="container-profile-avatar">
-                <div class="profile-avatar">
-                  <img src="@/img/avatar.jpg" alt="#">
-                </div>
+<!--                <div class="profile-avatar">-->
+<!--                  <img src="@/img/avatar.jpg" alt="#">-->
+<!--                </div>-->
                 <div class="container-tags">
                   <div class="person-tag-list-container">
-                    Саша, 24
+                    {{ this.userStore.user.username }}
+                    <!--                    Саша, 24-->
                   </div>
                 </div>
               </div>
-              <div class="about-me-info">
-                <div class = "about-me-container">
-                  <div class= "my-tags" style="">#Мои#Теги</div>
-                  <div style="top: 77.50px;  border: 2px white solid"></div>
-                  <ul class="person-tags-list">
-                    <li class="tag-list" v-for="tag in tags_person">
-                      <div class = "person-tag-list-container">
-                        <div style="justify-content: center; align-items: center; gap: 40px; display: inline-flex">
-                          <div style="color: #129BFF; font-size: 20px;  font-weight: 400; word-wrap: break-word">{{tag}}</div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
+              <RouterLink to="/createevent">
+                <div class="button-create">
+                  <a>Создать событие</a>
                 </div>
-              </div>
+              </RouterLink>
+<!--              <div class="about-me-info">-->
+<!--                <div class = "about-me-container">-->
+<!--                  <div class= "my-tags" style="">#Мои#Теги</div>-->
+<!--                  <div style="top: 77.50px;  border: 2px white solid"></div>-->
+<!--                  <ul class="person-tags-list">-->
+<!--                    <li class="tag-list" v-for="tag in tags_person">-->
+<!--                      <div class = "person-tag-list-container">-->
+<!--                        <div style="justify-content: center; align-items: center; gap: 40px; display: inline-flex">-->
+<!--                          <div style="color: #129BFF; font-size: 20px;  font-weight: 400; word-wrap: break-word">{{tag}}</div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </div>-->
             </div>
           </div>
         </section>
-
         <section id="active-events">
           <div class="container">
-            <h2>Активные события</h2>
+            <h2>Мои подписки</h2>
             <ul class="active-events-list">
               <li class="active-event" v-for="event in events" :key="event.id">
                 <div class="card-top">
@@ -122,7 +158,65 @@ export default {
                 <div class="card-bottom">
                   <h5 class="name-event">{{ event.title }}</h5>
                   <div class="tegs-list">
-                    <div class="tegs" v-for="tag in event.tags" :key="tag.id"> {{tag}}</div>
+                    <div class="tegs" v-for="tag in event.tags" :key="tag.id"> #{{tag}}</div>
+                  </div>
+                  <div class="date-place-time">
+                    <p class="date">{{ event.date }}•</p>
+                    <p class="time">{{ event.time }}•</p>
+                    <p class="place">{{ event.place }}</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="active-events">
+          <div class="container">
+            <h2>Созданные мной события</h2>
+            <ul class="active-events-list">
+              <li class="active-event" v-for="event in myevents" :key="event.id">
+                <div class="card-top">
+                  <RouterLink to="/aboutpage">
+                    <a class="active-event-img" href="#">
+                      <img :src="event.img_url" alt="боулинг" />
+                    </a>
+                  </RouterLink>
+                  <div class="card-label-price">{{ event.price }}₽</div>
+                </div>
+                <div class="card-bottom">
+                  <h5 class="name-event">{{ event.title }}</h5>
+                  <div class="tegs-list">
+                    <div class="tegs" v-for="tag in event.tags" :key="tag.id"> #{{tag}}</div>
+                  </div>
+                  <div class="date-place-time">
+                    <p class="date">{{ event.date }}•</p>
+                    <p class="time">{{ event.time }}•</p>
+                    <p class="place">{{ event.place }}</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="active-events">
+          <div class="container">
+            <h2>Созданные мной события</h2>
+            <ul class="active-events-list">
+              <li class="active-event" v-for="event in myevents" :key="event.id">
+                <div class="card-top">
+                  <RouterLink to="/aboutpage">
+                    <a class="active-event-img" href="#">
+                      <img :src="event.img_url" alt="боулинг" />
+                    </a>
+                  </RouterLink>
+                  <div class="card-label-price">{{ event.price }}₽</div>
+                </div>
+                <div class="card-bottom">
+                  <h5 class="name-event">{{ event.title }}</h5>
+                  <div class="tegs-list">
+                    <div class="tegs" v-for="tag in event.tags" :key="tag.id"> #{{tag}}</div>
                   </div>
                   <div class="date-place-time">
                     <p class="date">{{ event.date }}•</p>
@@ -179,8 +273,9 @@ section {
 .container-profile-avatar {
   display: flex;
   flex-direction: column;
-  width: 238px;
-  height: 432px;
+  width: 200px;
+  height: 100px;
+  //height: 432px;
   background-color: #129BFF;
   border-radius: 20px;
   align-items: center;
@@ -323,5 +418,16 @@ h5 {
 .tegs-list{
   display: flex;
 }
-
+.button-create{
+  background-color: #129bff;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  display: block;
+  width: 250px;
+  padding: 16px 32px;
+  margin: auto;
+  font: 500 20px "Raleway", sans-serif;
+  cursor: pointer;
+}
 </style>

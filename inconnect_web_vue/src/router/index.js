@@ -5,7 +5,7 @@ import AboutPage from '@/views/AboutPage.vue'
 import Registration from '@/views/Registration.vue'
 import LogIn from '@/views/LogIn.vue'
 import All from '@/views/All.vue'
-
+import CreateEvent from '@/views/CreateEvent.vue'
 
 const router = createRouter({
   history: createWebHistory(), //import.meta.env.BASE_URL
@@ -35,7 +35,12 @@ const router = createRouter({
       name: 'LogIn',
       component: LogIn
     },
-    
+    {
+      path: '/createevent',
+      name: 'CreateEvent',
+      component: CreateEvent
+    },
+
   ]
 })
 
