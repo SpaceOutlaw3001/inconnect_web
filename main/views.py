@@ -7,6 +7,7 @@ from rest_framework import generics, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
+from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .service import EventFilter, TagFilter
@@ -39,6 +40,10 @@ class TagsView(viewsets.ModelViewSet):
     # def get(self, request):
     #      tags = Tag.objects.all()
     #      return Response({'tags': TagSerializer(tags, many=True).data})
+class tagsListAPIView(generics.ListAPIView):
+    def get(self, request):
+        tags = Tag.objects.all()
+        return Response({'tags': TagSerializer(tags, many=True).data})
 
 # События с фильтрацией
 class EventsView(viewsets.ModelViewSet):
@@ -89,6 +94,17 @@ class EventsView(viewsets.ModelViewSet):
             return Response({'error': "Couldn't find Event with the given primary key."})
         event.delete()
         return Response({'deleted_event': f'Deleted Event with id={pk}.'})
+    
+    # Подписка
+    @action(detail=True, methods=['post'])
+    def podp(self, request, pk):
+        event = Event.objects.get(pk=pk)
+        if event.users.filter(id = request.user.id).exists():
+            event.users.remove(request.user)
+        else:
+            event.users.add(request.user)
+        
+        return Response('OK')
 
 # Получение списка всех изображений
 class imagesAPIView(APIView):

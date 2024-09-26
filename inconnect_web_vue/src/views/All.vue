@@ -70,9 +70,11 @@ export default {
             <ul class="active-events-list">
               <li class="active-event" v-for="event in events" :key="event.id">
                 <div class="card-top">
-                  <a class="active-event-img" href="#" >
-                    <img :src="event.img_url" alt="боулинг" />
-                  </a>
+                  <RouterLink :to="{name:'About', params: {event_id: event.id}}">
+                    <a class="active-event-img" href="#">
+                      <img :src="event.img_url" alt="боулинг" />
+                    </a>
+                  </RouterLink>
                   <div class="card-label-price">{{ event.price }}₽</div>
                 </div>
                 <div class="card-bottom">

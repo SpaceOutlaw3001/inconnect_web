@@ -2,12 +2,24 @@
 import mafia from "../img/mafia.jpg";
 import { Icon } from "vue3-google-icon";
 import image from "../img/bowling.jpg";
+import { useUserStore } from "../stores/user";
 
 import axios from "axios";
 export default {
   name: "AboutPage",
   props: { event: Object },
   components: {Icon},
+
+  setup() {
+        const userStore = useUserStore()
+
+        return {
+            userStore
+          }
+        },
+  beforeCreate() {
+     this.userStore.initStore()
+  },
 
   data() {
     return {
@@ -31,26 +43,42 @@ export default {
   },
 
   mounted() {
-    console.log('this.$route.params.event_id', this.$route.params.event_id)
-    console.log('this.$route.params', this.$route.params)
+    /* console.log('this.$route.params.event_id', this.$route.params.event_id)
+    console.log('this.$route.params', this.$route.params) */
     this.getEvents(this.$route.params.event_id);
+    
+    
   },
 
   methods: {
     getEvents(id) {
       axios
-        .get("/api/events/"+"")
+        .get("/api/events/"+id)
         .then((response) => {
           console.log("data", response.data);
 
           this.event = response.data//.event; //this.events = response.data
           console.log("this.event", this.event);
+
+          console.log('userStore.user.id', this.userStore.user.id)
+          console.log('event.users.includes(userStore.user.id)', 
+                    this.event.users.includes(Number(this.userStore.user.id)))
         })
         .catch((error) => {
           console.log("error", error);
         });
     },
-
+    postUsers(id) {
+      axios
+        .post("/api/events/"+id+"/podp/")
+        .then((response) => {
+          console.log("posted user")
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+        this.getEvents(this.event.id);
+    },
   },
 };
 </script>
@@ -91,9 +119,19 @@ export default {
                     <p class="time">{{ event.time }}•</p>
                     <p class="place">{{ event.place }}</p>
                   </div>
-                  <button class="button-participate">
-                    Участвовать
-                  </button>
+                  <div v-if="event.users && event.users.includes(Number(userStore.user.id))">
+                    <button class="button-participate" @click="postUsers(event.id)">
+                      Отписаться
+                    </button>
+                  </div>
+                  <div v-else>
+                    <button class="button-participate" @click="postUsers(event.id)">
+                      Участвовать
+                      <!-- Участвовать {{ event.users }} -->
+                    </button>
+                
+                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -102,7 +140,7 @@ export default {
             <label>
               О событии
             </label>
-            <p class="description-text">Банальные, но неопровержимые выводы, а также базовые сценарии поведения пользователей неоднозначны и будут ассоциативно распределены по отраслям. Как принято считать, многие известные личности неоднозначны и будут в равной степени предоставлены сами себе. С другой стороны, начало повседневной работы по формированию позиции в значительной степени обусловливает важность вывода текущих активов. В своём стремлении улучшить пользовательский опыт мы упускаем, что сделанные на базе интернет-аналитики выводы смешаны с не уникальными .</p>
+            <p class="description-text"> {{ event.text }}</p>
           </div>
         </section>
       </main>
@@ -200,6 +238,8 @@ h5 {
 .description {
   font: 400 48px "Russo One", sans-serif;
   margin: 24px 330px;
+  width: 1500px;
+
 }
 .description-text{
   font: 500 20px "Raleway", sans-serif;

@@ -18,6 +18,7 @@ urlpatterns = [
     #path('api/events/detail/<int:pk>/', views.eventsDetailAPIView.as_view(), name='event'),
     path('api/images/', views.imagesAPIView.as_view(), name='images'),
     path('api/images/<int:pk>/', views.imagesDetailAPIView.as_view(), name='image'),
+    path('api/tags_list/', views.tagsListAPIView.as_view(), name='tags_list'),
 
     # Пути с фильтрацией тегов и событий
     path('api/', include(router.urls)),

@@ -21,6 +21,7 @@ class EventSerializer(serializers.ModelSerializer):
             chat_link=validated_data['chat_link'],
             price=validated_data['price'],
             image = validated_data['image'],
+            created_by=self.context['request'].user,
         )
         new_event.tags.set(validated_data['tags'])
 

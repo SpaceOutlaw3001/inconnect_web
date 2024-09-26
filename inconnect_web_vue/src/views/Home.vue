@@ -177,7 +177,7 @@ export default {
             <ul class="active-events-list">
               <li class="active-event" v-for="event in myevents" :key="event.id">
                 <div class="card-top">
-                  <RouterLink to="/aboutpage">
+                  <RouterLink :to="{name:'About', params: {event_id: event.id}}">
                     <a class="active-event-img" href="#">
                       <img :src="event.img_url" alt="боулинг" />
                     </a>
@@ -200,7 +200,7 @@ export default {
           </div>
         </section>
 
-        <section id="active-events">
+        <!-- <section id="active-events">
           <div class="container">
             <h2>Созданные мной события</h2>
             <ul class="active-events-list">
@@ -227,7 +227,7 @@ export default {
               </li>
             </ul>
           </div>
-        </section>
+        </section> -->
       </main>
     </body>
   </div>
