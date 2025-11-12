@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{# можно либо block либо section#}
+
+{% block title %}
+    <h1>Зареган</h1>
+{% endblock %}
+
+{% block content %}
+    <h1>Регитрация</h1>
+    {% csrf_token %}
+
+
+
+{% endblock %}
